@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="CI Group Test Suite" verbose="2" >
+    <test name="jcat-ci">
+        <groups>
+            <run>
+                <include name="ci_regression_inv" />
+            </run>
+        </groups>
+        <packages>
+            <package name="com.jcat.*" />
+        </packages>
+    </test>
+</suite>

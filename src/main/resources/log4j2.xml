@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT" follow="true">
+			<!-- 2012-11-02 14:34:02,781 DEBUG ClassName[LineNumber] - Message\nFull_Stack_Trace -->
+			<PatternLayout pattern="%d{ISO8601} [%5p] [%20c{1}] %m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+
+	    <!-- ================ -->
+	    <!-- Hibernate -->
+	    <!-- ================ -->
+
+		<Logger name="org.hibernate" level="warn" />
+		<Logger name="com.mchange" level="warn" />
+
+	    <!-- ================ -->
+	    <!-- JCAT -->
+	    <!-- ================ -->
+
+		<!-- here we need INFO level to make CATLOG working with test steps -->
+		<Logger name="se.ericsson.jcat" level="info" />
+
+	    <!-- ================ -->
+	    <!-- CommonLibrary -->
+	    <!-- ================ -->
+
+		<Logger name="com.ericsson.commonlibrary.cf.xml.adapter" level="warn" />
+		<Logger name="com.ericsson.commonlibrary.remotecli" level="warn" />
+
+	    <!-- ================ -->
+	    <!-- Reflection library -->
+	    <!-- ================ -->
+
+		<Logger name="org.reflections" level="warn" />
+
+	    <!-- ================ -->
+	    <!-- JCAT Cloud -->
+	    <!-- ================ -->
+
+		<Logger name="com.jcat.cloud.fw.infrastructure.listeners" level="warn" />
+		<Logger name="com.jcat.cloud.fw.infrastructure.base.JcatTelcoDcTestCase" level="info" />
+		<Logger name="com.jcat.cloud.fw.infrastructure.configurations" level="info" />
+		<Logger name="com.jcat.cloud.tests" level="info" />
+		<Logger name="com.jcat.cloud.fw" level="info" />
+		<Logger name="com.jcat.legacy.lib" level="info" />
+		<Logger name="com.jcat.legacy.tests" level="info" />
+
+	    <!-- ================ -->
+	    <!-- Root -->
+	    <!-- ================ -->
+
+		<Root level="info">
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+	</Loggers>
+</Configuration>

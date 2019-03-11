@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <!-- ================ -->
+    <!-- Appenders -->
+    <!-- ================ -->
+
+ <Appenders>
+	    <!-- The console output will only show ERROR and FATAL messages. If everything
+        is going OK then the output will be minimal. -->
+  <Console name="CONSOLE-WARN" target="SYSTEM_OUT" follow="true">
+			<!-- M, F, L will make output very slow according to log4j document. -->
+   <PatternLayout pattern="%d{ISO8601} [%p] [%c{1}:%M] (%F:%L) %m%n" />
+   <ThresholdFilter level="WARN" />
+  </Console>
+
+  <Console name="CONSOLE-INFO" target="SYSTEM_OUT" follow="true">
+   <PatternLayout pattern="%d{yyyy-MM-dd} %m%n" />
+  </Console>
+
+		<!-- A time/date based rolling file appender
+		<RollingFile name="NOTIFICATIONFILE" fileName="target/test-data/notifications.log" filePattern="target/test-data/notifications.log.{yyyy-MM-dd}">
+			<PatternLayout pattern="%d %-5p [%c{1}] %m%n" />
+		</RollingFile>-->
+ </Appenders>
+
+ <Loggers>
+
+	    <!-- ================ -->
+	    <!-- JCAT Cloud -->
+	    <!-- ================ -->
+
+  <Logger name="CloudTestCaseFixture" level="INFO">
+   <AppenderRef ref="CONSOLE-INFO" />
+  </Logger>
+
+  <Logger name="CloudTestSuiteFixture" level="INFO">
+   <AppenderRef ref="CONSOLE-INFO" />
+  </Logger>
+
+  <Logger name="TestResults" level="INFO">
+   <AppenderRef ref="CONSOLE-INFO" />
+  </Logger>
+
+	    <!-- ================ -->
+	    <!-- Root -->
+	    <!-- ================ -->
+
+  <Root level="DEBUG">
+   <AppenderRef ref="CONSOLE-WARN" />
+			<!-- <AppenderRef ref="NOTIFICATIONFILE"/> -->
+  </Root>
+ </Loggers>
+</Configuration>

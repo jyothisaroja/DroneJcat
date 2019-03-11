@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT" follow="true">
+			<!-- 2012-11-02 14:34:02,781 DEBUG ClassName[LineNumber] - Message\nFull_Stack_Trace -->
+			<PatternLayout pattern="%d{ISO8601} [%p] [%c{1}] (%F:%L) %m%n" />
+		</Console>
+
+		<!-- A time/date based rolling file appender -->
+		<RollingFile name="NOTIFICATIONFILE" append="true" fileName="target/test-data/notifications.log" filePattern="target/test-data/notifications.log.{yyyy-MM-dd}">
+			<!-- The default pattern: Date level [logger] Message\n -->
+			<PatternLayout pattern="%d %-5p [%c{1}] (%t) %m%n" />
+			<!-- The full pattern: Date MS level [logger] (Thread:NDC) Message\n <param
+                name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/> -->
+			<ThresholdFilter leve="TRACE"/>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+
+	    <!-- ================ -->
+	    <!-- Hibernate -->
+	    <!-- ================ -->
+
+		<Logger name="org.hibernate" level="warn" />
+		<Logger name="com.mchange" level="warn" />
+
+
+	    <!-- ================ -->
+	    <!-- JCAT -->
+	    <!-- ================ -->
+
+	    <Logger name="se.ericsson.jcat" level="debug" />
+
+	    <!-- ================ -->
+	    <!-- CommonLibrary -->
+	    <!-- ================ -->
+
+		<Logger name="com.ericsson.commonlibrary.cf.xml.adapter" level="warn" />
+		<Logger name="com.ericsson.commonlibrary.remotecli" level="warn" />
+
+	    <!-- ================ -->
+	    <!-- Reflection library -->
+	    <!-- ================ -->
+
+		<Logger name="org.reflections" level="warn" />
+
+	    <!-- ================ -->
+	    <!-- JCAT Cloud -->
+	    <!-- ================ -->
+
+		<Logger name="com.jcat.cloud.fw.infrastructure.base.JcatTelcoDcTestCase" level="trace" />
+		<Logger name="com.jcat.cloud.fw.infrastructure.listeners" level="debug" />
+		<Logger name="com.jcat.cloud.tests" level="debug" />
+		<Logger name="com.jcat.cloud.fw" level="debug" />
+
+	    <!-- ================ -->
+	    <!-- Root -->
+	    <!-- ================ -->
+
+		<Root level="debug">
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+	</Loggers>
+</Configuration>

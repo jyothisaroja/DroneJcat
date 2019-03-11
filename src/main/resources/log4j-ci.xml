@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+    debug="false">
+
+    <!-- ================ -->
+    <!-- Appenders -->
+    <!-- ================ -->
+
+    <!-- The console output will only show ERROR and FATAL messages. If everything
+        is going OK then the output will be minimal. -->
+    <appender name="CONSOLE-WARN" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <param name="Threshold" value="WARN" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%p] [%c{1}:%M] (%F:%L) %m%n" /> <!-- M, F, L will make output very slow according to log4j document. -->
+        </layout>
+    </appender>
+
+    <appender name="CONSOLE-INFO" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd} %m%n" />
+        </layout>
+    </appender>
+
+    <!-- A time/date based rolling file appender -->
+    <appender name="NOTIFICATIONFILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="target/test-data/notifications.log" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%c{1}] %m%n" />
+        </layout>
+    </appender>
+
+    <!-- ================ -->
+    <!-- Jcat Cloud -->
+    <!-- ================ -->
+    <logger name="com.ericsson.jcat.ecmlib">
+        <level value="TRACE" />
+    </logger>
+
+    <!-- Printing basic info in fixture class -->
+    <logger name="CloudTestCaseFixture">
+        <level value="INFO" />
+        <appender-ref ref="CONSOLE-INFO" />
+    </logger>
+    
+        <logger name="CloudTestSuiteFixture">
+        <level value="INFO" />
+        <appender-ref ref="CONSOLE-INFO" />
+    </logger>
+
+    <!-- Printing basic info for test result -->
+    <logger name="TestResults">
+        <level value="INFO" />
+        <appender-ref ref="CONSOLE-INFO" />
+    </logger>
+
+    <root>
+        <level value="DEBUG" />
+        <appender-ref ref="CONSOLE-WARN" />
+        <appender-ref ref="NOTIFICATIONFILE" />
+    </root>
+</log4j:configuration>

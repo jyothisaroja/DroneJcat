@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+    debug="false">
+
+    <!-- ================ -->
+    <!-- Appenders -->
+    <!-- ================ -->
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%p] [%c{1}] (%F:%L) %m%n" /> <!-- M, F, L will make output very slow according to log4j document. -->
+        </layout>
+    </appender>
+
+    <!-- A time/date based rolling file appender -->
+    <appender name="NOTIFICATIONFILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="target/test-data/notifications.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" /><!-- Rollover at midnight each day -->
+        <param name="Threshold" value="TRACE" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date level [logger] Message\n -->
+            <param name="ConversionPattern" value="%d %-5p [%c{1}] (%t) %m%n" />
+            <!-- The full pattern: Date MS level [logger] (Thread:NDC) Message\n <param
+                name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/> -->
+        </layout>
+    </appender>
+
+    <!-- ================ -->
+    <!-- Hibernate -->
+    <!-- ================ -->
+
+    <logger name="org.hibernate">
+        <level value="WARN" />
+    </logger>
+    <logger name="com.mchange">
+        <level value="WARN" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- JCAT -->
+    <!-- ================ -->
+
+    <logger name="se.ericsson.jcat">
+        <level value="DEBUG" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- CommonLibrary -->
+    <!-- ================ -->
+
+    <logger name="com.ericsson.commonlibrary.cf.xml.adapter">
+        <level value="WARN" />
+    </logger>
+
+    <logger name="com.ericsson.commonlibrary.remotecli">
+        <level value="WARN" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- JCAT Cloud -->
+    <!-- ================ -->
+
+    <logger name="com.jcat.cloud.fw.infrastructure.base.JcatTelcoDcTestCase">
+        <level value="TRACE" />
+    </logger>
+
+    <logger name="com.jcat.cloud.fw.infrastructure.listeners">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.jcat.cloud.tests">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.jcat.cloud.fw">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.jcat.legacy.lib">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.jcat.legacy.tests">
+        <level value="DEBUG" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- ECM -->
+    <!-- ================ -->
+
+    <logger name="com.ericsson.jcat.ecmlib">
+        <level value="TRACE" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- Root -->
+    <!-- ================ -->
+
+    <root>
+        <level value="DEBUG" />
+        <appender-ref ref="CONSOLE" />
+<!--        <appender-ref ref="CATLOG" /> -->
+    </root>
+
+</log4j:configuration>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+    <listeners>
+        <listener
+            class-name="se.ericsson.jcat.fw.fixture.testng.JcatNGSuiteListener" />
+        <listener
+            class-name="se.ericsson.jcat.fw.fixture.testng.JcatNGTestListener" />
+    </listeners>
+</suite>

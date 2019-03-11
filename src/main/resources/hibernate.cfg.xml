@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://esekilx0007-sql5.rnd.ki.sw.ericsson.se:3354/cloudportal</property>
+        <property name="hibernate.connection.username">cloudci</property>
+        <property name="hibernate.connection.password">jCl@uds2013</property>
+        <property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="hibernate.c3p0.idle_test_period">60</property>
+        <property name="hibernate.c3p0.min_size">1</property>
+        <property name="hibernate.c3p0.max_size">5</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.timeout">0</property>
+        <property name="hibernate.c3p0.acquireRetryAttempts">1</property>
+        <property name="hibernate.c3p0.acquireRetryDelay">250</property>
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <!-- ORM definitions -->
+        <mapping class="com.jcat.cloud.fw.fwservices.monitoring.db.MonitoringTag"/>
+        <mapping class="com.jcat.cloud.fw.fwservices.monitoring.db.MonitoringProcess"/>
+        <mapping class="com.jcat.cloud.fw.fwservices.monitoring.db.MonitoringSample"/>
+    </session-factory>
+</hibernate-configuration>

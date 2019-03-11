@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+    debug="false">
+
+    <!-- ================ -->
+    <!-- Appenders -->
+    <!-- ================ -->
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- <param name="ConversionPattern" value="%d{ISO8601} [%5p] [%c] (%F:%L)
+                %m%n" /> -->
+            <param name="ConversionPattern" value="%d{ISO8601} [%5p] [%20c{1}] %m%n" />
+        </layout>
+    </appender>
+
+<!--    <appender name="CATLOG"
+        class="se.ericsson.jcat.fw.ng.logging.HttpLog4jAppender" /> -->
+
+    <!-- ================ -->
+    <!-- Hibernate -->
+    <!-- ================ -->
+
+    <logger name="org.hibernate">
+        <level value="WARN" />
+    </logger>
+    <logger name="com.mchange">
+        <level value="WARN" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- JCAT -->
+    <!-- ================ -->
+
+    <!-- here we need INFO level to make CATLOG working with test steps -->
+    <logger name="se.ericsson.jcat">
+        <level value="INFO" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- CommonLibrary -->
+    <!-- ================ -->
+
+    <logger name="com.ericsson.commonlibrary.cf.xml.adapter">
+        <level value="WARN" />
+    </logger>
+
+    <logger name="com.ericsson.commonlibrary.remotecli">
+        <level value="WARN" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- Reflection library -->
+    <!-- ================ -->
+
+    <logger name="org.reflections">
+        <level value="WARN" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- JCAT Cloud -->
+    <!-- ================ -->
+
+    <logger name="com.jcat.cloud.fw.infrastructure.base.JcatTelcoDcTestCase">
+        <level value="INFO" />
+    </logger>
+
+    <logger name="com.jcat.cloud.fw.infrastructure.listeners">
+        <level value="WARN" />
+    </logger>
+
+    <logger name="com.jcat.cloud.fw.infrastructure.configurations">
+        <level value="INFO" />
+    </logger>
+
+    <logger name="com.jcat.cloud.tests">
+        <level value="INFO" />
+    </logger>
+
+    <logger name="com.jcat.cloud.fw">
+        <level value="INFO" />
+    </logger>
+
+    <logger name="com.jcat.legacy.lib">
+        <level value="INFO" />
+    </logger>
+
+    <logger name="com.jcat.legacy.tests">
+        <level value="INFO" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- ECM -->
+    <!-- ================ -->
+
+    <logger name="com.ericsson.jcat.ecmlib">
+        <level value="INFO" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- Root -->
+    <!-- ================ -->
+
+    <root>
+        <level value="INFO" />
+        <appender-ref ref="CONSOLE" />
+        <!--  <appender-ref ref="CATLOG" /> -->
+    </root>
+
+</log4j:configuration>

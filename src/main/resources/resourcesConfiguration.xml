@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This configuration is for demo purposes and only temporary placed here.
+    The current settings are for DC037 in the cloud lab, blade 1 as OpenStack
+    controller (ext IP 10.80.246.190). -->
+<resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jcat.cn.ao.ericsson.se:8880/xml-adapter/resources-1.0.0.xsd"
+    site="ki">
+    <resource id="DC037" site="ki"
+        type="com.ericsson.telcodc.jcat.resources.CloudNode">
+        <relation name="CloudComponent" id="Dmx"></relation>
+        <relation name="CloudComponent" id="Ecm"></relation>
+        <relation name="CloudComponent" id="OpenStack"></relation>
+        <relation name="CloudComponent" id="Rabbit"></relation>
+    </resource>
+    <resource id="Dmx" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.DmxResource">
+        <property name="ip">10.80.246.222</property>
+        <property name="username_expert">myexpert</property>
+        <property name="password_expert">myexpert</property>
+        <property name="port_cli">2024</property>
+        <property name="port_netconf_ssh">4000</property>
+    </resource>
+    <resource id="VcFlex" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.VcFlexResource">
+        <property name="ip">10.80.246.111</property>
+        <property name="username">myroot</property>
+        <property name="password">myroot</property>
+        <property name="port_cli">2000</property>
+    </resource>
+    <resource id="OpenStack" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.OpenStackResource">
+        <property name="ip_public">10.80.246.190</property> <!-- LXC ip address -->
+        <property name="ip_internal_cic1">192.168.210.1</property> <!-- Internal ip address of Cic1 -->
+        <property name="ip_internal_cic2">192.168.210.2</property> <!-- Internal ip address of Cic2 -->
+        <property name="keystone_port_public">40005</property> <!-- External keystone port (port forwarded to internal keystone port) -->
+        <property name="keystone_port_internal">5000</property>
+        <property name="ssh_port_public">22101</property> <!-- External ssh port (port forwarded to internal ssh port) -->
+        <property name="ssh_port_internal">22</property>
+        <property name="tenants">{"identity":"ericsson:admin","password":"foobar"}
+                                                          </property>
+        <property name="controller">{"username":"root","password":"root"}
+                                                          </property> <!-- Controller's ssh information -->
+        <property name="compute_node">{"ssh_user":"root","ssh_password":"root"}
+                                                          </property> <!-- Compute nodes ssh information -->
+    </resource>
+    <resource id="Rabbit" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.RabbitMqServerResource">
+        <property name="ip">10.80.246.190</property>
+        <property name="username">guest</property>
+        <property name="password">guest</property>
+        <property name="port">5672</property>
+    </resource>
+    <!--Multiple ExtremeSwitch Resource Supported -->
+    <!--ExtremeSwitch resource id must use naming pattern: ExtremeSwitch_1,ExtremeSwitch_2,ExtremeSwitch_3,ExtremeSwitch_4 -->
+    <resource id="ExtremeSwitch_1" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.ExtremeSwitchResource">
+        <property name="ip">10.80.247.158</property>
+        <property name="username">admin</property>
+        <property name="password"></property>
+        <property name="http_port">28080</property>
+        <property name="console_server_ip">123</property>
+        <property name="console_server_port">123</property>
+    </resource>
+    <resource id="ExtremeSwitch_2" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.ExtremeSwitchResource">
+        <property name="ip">10.80.247.159</property>
+        <property name="username">admin</property>
+        <property name="password"></property>
+        <property name="http_port">28080</property>
+        <property name="console_server_ip">123</property>
+        <property name="console_server_port">123</property>
+    </resource>
+    <resource id="SerialConsoles" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.SerialConsolesResource">
+        <property name="consoles">
+                                                                                       [
+                                                                                       {"ip": "10.80.244.13", "port":"7021",
+                                                                                       "target":"2-1" },
+                                                                                       {"ip": "10.80.244.13", "port":"7022", "target":"2-2"
+                                                                                       }
+                                                                                       ]
+                                                          </property>
+        <property name="host">dccon.cloud.k2.ericsson.se</property>
+    </resource>
+    <resource id="Emc" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.EmcResource">
+        <property name="ip_spa">192.168.200.30</property>
+        <property name="ip_spb">192.168.200.31</property>
+        <property name="username">sysadmin</property>
+        <property name="password">sysadmin</property>
+    </resource>
+    <resource id="Lxc" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.LxcResource">
+        <property name="ip">10.80.246.190</property>
+        <property name="ssh_port">22</property>
+        <property name="ssh_user">lxcpxc</property>
+        <property name="ssh_password">lxcpxc</property>
+    </resource>
+    <resource id="Ecm" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.EcmResource">
+        <property name="frontEndHost">127.0.0.1</property>
+        <property name="backEndHost">127.0.0.1</property>
+        <property name="restPort">8080</property>
+        <property name="users">[{"identity":"ecmadmin:ecmadmin","password":"ecmadmin","type":"ADMIN"},
+                                                                                       {"identity":"tenantCATOFF:user1CATOFF","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantCATOFF:user2CATOFF","password":"test","type":"USER"},
+                                                                                       {"identity":"tenantCATORD:user1CATORD","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantCATORD:user3CATORD","password":"test","type":"USER"},
+                                                                                       {"identity":"tenantCMDBQUERY:user1CMDBQUERY","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantCMDBQUERY:user2CMDBQUERY","password":"test","type":"USER"},
+                                                                                       {"identity":"tenantCMDBQUERY1:user1CMDBQUERY1","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantCMDBQUERY2:user2CMDBQUERY1","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantCMDBSD:user1CMDBSD","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantCMDBSD:user2CMDBSD","password":"test","type":"USER"},
+                                                                                       {"identity":"tenantCMDBQUERY3:useradmCMDBQUERY","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantCMDBQUERY3:usertenantCMDBQUERY","password":"test","type":"USER"},
+                                                                                       {"identity":"tenantCMDBQUERYNonActive:activeUserUnderDeActiveTenant","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantForNonActiveUsers:deactiveUserUnderActiveTenant","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantActions:user1Actions","password":"test","type":"TENANT_ADMIN"},
+                                                                                       {"identity":"tenantActions:user2Actions","password":"test","type":"USER"}]
+                                                          </property>
+    </resource>
+    <resource id="Bgw" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.BgwResource">
+        <property name="bgw_cidr">10.33.136.0/24</property>
+        <property name="public_bgw_ip">10.33.136.109</property>
+    </resource>
+    <resource id="Fuel" site="ki"
+        type="com.jcat.cloud.fw.infrastructure.resources.FuelResource">
+        <property name="ip_public">10.80.246.190</property> <!-- LXC ip address -->
+        <property name="keystone_port_public">45000</property> <!-- Fuel's Keystone instance -->
+        <property name="fuel_port_public">48000</property>
+        <property name="username">admin</property>
+        <property name="password">admin</property>
+    </resource>
+</resources>

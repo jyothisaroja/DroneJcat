@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+    debug="false">
+
+    <!-- ================ -->
+    <!-- Appenders -->
+    <!-- ================ -->
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%5p] [%c] (%F:%L) %m%n" />
+            <!-- <param name="ConversionPattern" value="%d{ISO8601} [%5p] %m%n" /> -->
+        </layout>
+    </appender>
+
+    <appender name="CATLOG"
+        class="se.ericsson.jcat.fw.ng.logging.HttpLog4jAppender" />
+
+    <!-- A time/date based rolling appender -->
+    <appender name="WIREFILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="target/test-data/jclouds-wire.log" />
+        <param name="Append" value="true" />
+
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+
+        <param name="Threshold" value="TRACE" />
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date level [logger] Message\n -->
+            <param name="ConversionPattern" value="%d %-5p [%c] (%t) %m%n" />
+
+            <!-- The full pattern: Date MS level [logger] (Thread:NDC) Message\n <param
+                name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/> -->
+        </layout>
+    </appender>
+
+    <!-- A time/date based rolling appender -->
+    <appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="target/test-data/jclouds.log" />
+        <param name="Append" value="true" />
+
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+
+        <param name="Threshold" value="TRACE" />
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date level [logger] Message\n -->
+            <param name="ConversionPattern" value="%d %-5p [%c] (%t) %m%n" />
+
+            <!-- The full pattern: Date MS level [logger] (Thread:NDC) Message\n <param
+                name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/> -->
+        </layout>
+    </appender>
+
+    <!-- A time/date based rolling appender -->
+    <appender name="NOTIFICATIONFILE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="target/test-data/notifications.log" />
+        <param name="Append" value="true" />
+
+        <!-- Rollover at midnight each day -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+
+        <param name="Threshold" value="TRACE" />
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date level [logger] Message\n -->
+            <param name="ConversionPattern" value="%d %-5p [%c] (%t) %m%n" />
+
+            <!-- The full pattern: Date MS level [logger] (Thread:NDC) Message\n <param
+                name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/> -->
+        </layout>
+    </appender>
+
+    <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+        <appender-ref ref="FILE" />
+    </appender>
+
+    <appender name="ASYNCWIRE" class="org.apache.log4j.AsyncAppender">
+        <appender-ref ref="WIREFILE" />
+    </appender>
+
+    <appender name="ASYNCNOTIFICATIONFILE" class="org.apache.log4j.AsyncAppender">
+        <appender-ref ref="NOTIFICATIONFILE" />
+    </appender>
+
+    <!-- ================ -->
+    <!-- jClouds -->
+    <!-- ================ -->
+
+    <logger name="org.jclouds" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="ASYNC" />
+    </logger>
+
+    <logger name="jclouds.headers" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="ASYNCWIRE" />
+    </logger>
+
+    <logger name="jclouds.wire" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="ASYNCWIRE" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- JCAT -->
+    <!-- ================ -->
+
+    <logger name="se.ericsson.jcat">
+        <level value="DEBUG" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- CommonLibrary -->
+    <!-- ================ -->
+
+    <logger name="com.ericsson.commonlibrary.cf.xml.adapter">
+        <level value="WARN" />
+    </logger>
+
+    <logger name="com.ericsson.commonlibrary.remotecli">
+        <level value="WARN" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- JCAT TelcoDC -->
+    <!-- ================ -->
+
+    <logger name="com.jcat.ecs.JcatTelcoDcTestCase">
+        <level value="TRACE" />
+    </logger>
+
+    <logger name="com.jcat.ecs.listeners">
+        <level value="WARN" />
+    </logger>
+
+    <logger name="com.jcat.ecs.tests">
+        <level value="TRACE" />
+    </logger>
+
+    <logger name="com.jcat.ecs.lib.nodeState">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.jcat.ecs.lib.alarms">
+        <level value="INFO" />
+        <appender-ref ref="ASYNCNOTIFICATIONFILE" />
+    </logger>
+
+    <logger name="com.jcat.ecs.libs.hc">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.jcat.ecs">
+        <level value="INFO" />
+    </logger>
+
+    <logger name="com.jcat.ecs.integration">
+        <level value="DEBUG" />
+    </logger>
+
+    <logger name="com.jcat.ecs.fwintegration">
+        <level value="TRACE" />
+    </logger>
+
+    <logger name="com.jcat.ecs.lib.controllers">
+        <level value="TRACE" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- ECM -->
+    <!-- ================ -->
+
+    <logger name="com.ericsson.jcat.ecmlib">
+        <level value="TRACE" />
+    </logger>
+
+    <!-- ================ -->
+    <!-- Root -->
+    <!-- ================ -->
+
+    <root>
+        <level value="DEBUG" />
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="CATLOG" />
+    </root>
+
+</log4j:configuration>

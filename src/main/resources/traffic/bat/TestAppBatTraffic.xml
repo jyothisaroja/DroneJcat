@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE traffic [
+
+<!ELEMENT traffic (plugins)>
+<!ELEMENT plugins (plugin+)>
+<!ELEMENT plugin (class, entryExitPoint, monitor?, configuration)>
+<!ELEMENT class (#PCDATA)>
+<!ELEMENT entryExitPoint (#PCDATA)>
+<!ELEMENT monitor (#PCDATA)>
+<!ELEMENT configuration ANY>
+<!ATTLIST plugin name CDATA #REQUIRED>
+<!ATTLIST monitor delay CDATA #REQUIRED>
+<!ATTLIST monitor period CDATA #REQUIRED>
+<!ATTLIST monitor soft (true|false) #IMPLIED>
+]>
+<traffic>
+	<plugins>
+		<plugin name="TestAppTrafficPlugin">
+			<class>com.jcat.ecs.traffic.bat.TestAppTrafficPlugin</class>
+			<entryExitPoint>ONSUITE</entryExitPoint>
+			<!-- NB! In case this tag is missing, monitor is not started by default -->
+			<monitor delay="60" period="60" soft="false" />
+			<configuration>
+			</configuration>
+		</plugin>
+	</plugins>
+</traffic>
+
