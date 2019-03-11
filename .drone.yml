@@ -1,5 +1,5 @@
 pipeline:
   build:
-     image: openjdk:8-jdk
+     image: maven
      commands:
-       - ./mvn clean verify -Dnode=dc406
+       - mvn -version
