@@ -1,0 +1,7 @@
+pipeline:
+  build:
+    image: openjdk:8-jdk
+    commands:
+      - ./mvn clean verify -Dnode=dc406
+    when:
+      event: push
